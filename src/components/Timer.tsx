@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 export default function Timer() {
   const [time, setTime] = useState(2500);
   const [isRunning, setIsRunning] = useState(false);
-  const [inputTime, setInputTime] = useState("");
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -20,7 +19,6 @@ export default function Timer() {
   }, [isRunning, time]);
 
   function handleStart() {
-    setTime(parseInt(inputTime, 10));
     setIsRunning(true);
   }
 
@@ -36,24 +34,20 @@ export default function Timer() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div className="text-6xl mb-4">{time}s</div>
-      <input
-        type="number"
-        value={inputTime}
-        onChange={(e) => setInputTime(e.target.value)}
-        className="mb-4 p-2 border rounded"
-        placeholder="Set time in seconds"
-      />
       <div className="flex space-x-4">
-        <button
-          onClick={handleStart}
-          className="bg-blue-500 text-white px-4 py-2 rounded">
-          Start
-        </button>
-        <button
-          onClick={handleStop}
-          className="bg-red-500 text-white px-4 py-2 rounded">
-          Stop
-        </button>
+        {!isRunning ? (
+          <button
+            onClick={handleStart}
+            className="bg-blue-500 text-white px-4 py-2 rounded">
+            Start
+          </button>
+        ) : (
+          <button
+            onClick={handleStop}
+            className="bg-red-500 text-white px-4 py-2 rounded">
+            Stop
+          </button>
+        )}
         <button
           onClick={handleReset}
           className="bg-gray-500 text-white px-4 py-2 rounded">
