@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { StartButton, StopButton, ResetButton } from "@/components/button";
 
 // ポモドーロタイマー
-// 以下は余力があれば
-//
 export default function Timer() {
   const [focusTime, setFocusTime] = useState(1500); // 初期値は25分＝1500秒
   const [restTime, setRestTime] = useState(300); //初期値は５分=300秒
@@ -87,11 +85,13 @@ export default function Timer() {
             isRunning && isFocus ? "border-dashed border-green-500" : ""
           }`}>
           <label htmlFor="focusTime">集中する時間</label>
-          <select name="focus" id="focusTime" onChange={handleFocusChange}>
+          <select
+            name="focus"
+            id="focusTime"
+            value={focusTime}
+            onChange={handleFocusChange}>
             <option value="1800">30分</option>
-            <option value="1500" selected>
-              25分
-            </option>
+            <option value="1500">25分</option>
             <option value="900">15分</option>
           </select>
           <div className="text-6xl mb-4">{formatTime(focusTime)}</div>
@@ -101,7 +101,11 @@ export default function Timer() {
             isRunning && !isFocus ? "border-dashed border-green-500" : ""
           }`}>
           <label htmlFor="restTime">休憩する時間</label>
-          <select name="rest" id="restTime" onChange={handleRestChange}>
+          <select
+            name="rest"
+            id="restTime"
+            value={restTime}
+            onChange={handleRestChange}>
             <option value="300">5分</option>
             <option value="600">10分</option>
             <option value="900">15分</option>
