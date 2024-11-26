@@ -1,8 +1,9 @@
 // todo
-// nextjs15にアップデートする
+// TSの型定義を追加して、整理する
 "use client";
 
 import { useState, useEffect } from "react";
+import TimerDisplay from "@/components/TimerDisplay";
 import { StartButton, StopButton, ResetButton } from "@/components/button";
 
 // ポモドーロタイマー
@@ -93,41 +94,15 @@ export default function Timer() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-4xl mb-4">ポモドーロタイマー</h1>
-      <div className="flex space-x-8">
-        <div
-          className={`border-2 p-2 ${
-            isRunning && isFocus ? "border-dashed border-green-500" : ""
-          }`}>
-          <label htmlFor="focusTime">集中する時間</label>
-          <select
-            name="focus"
-            id="focusTime"
-            defaultValue="1500"
-            //value={focusTime}を使うと、selectの値がなぜか３０分になってしまう
-            onChange={handleFocusChange}>
-            <option value="1800">30分</option>
-            <option value="1500">25分</option>
-            <option value="900">15分</option>
-          </select>
-          <div className="text-6xl mb-4">{formatTime(focusTime)}</div>
-        </div>
-        <div
-          className={`border-2 p-2 ${
-            isRunning && !isFocus ? "border-dashed border-green-500" : ""
-          }`}>
-          <label htmlFor="restTime">休憩する時間</label>
-          <select
-            name="rest"
-            id="restTime"
-            defaultValue="300"
-            onChange={handleRestChange}>
-            <option value="300">5分</option>
-            <option value="600">10分</option>
-            <option value="900">15分</option>
-          </select>
-          <div className="text-6xl mb-4">{formatTime(restTime)}</div>
-        </div>
-      </div>
+      <TimerDisplay
+        isRunning={isRunning}
+        isFocus={isFocus}
+        focusTime={focusTime}
+        restTime={restTime}
+        handleFocusChange={handleFocusChange}
+        handleRestChange={handleRestChange}
+        formatTime={formatTime}
+      />
       <div className="flex space-x-4 m-5">
         {!isRunning ? (
           <StartButton handleStart={handleStart} />
