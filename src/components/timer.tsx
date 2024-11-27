@@ -1,5 +1,5 @@
 // todo
-// TSの型定義を追加して、整理する
+// tsの型定義フォルダを追加して、そこからインポートする
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,47 +13,38 @@ export default function Timer() {
   const [isRunning, setIsRunning] = useState(false);
   const [isFocus, setIsFocus] = useState(true); // 初期はfocusTimer
 
+  // タイマーの値をリセットする関数
+  const resetTimerValues = () => {
+    const focusSelect = document.getElementById(
+      "focusTime"
+    ) as HTMLSelectElement;
+    const restSelect = document.getElementById("restTime") as HTMLSelectElement;
+    setFocusTime(Number(focusSelect.value));
+    setRestTime(Number(restSelect.value));
+  };
+
   useEffect(() => {
     let timer: NodeJS.Timeout;
     if (isRunning) {
-      if (isFocus && focusTime > 0) {
-        timer = setInterval(() => {
-          setFocusTime((prevTime) => prevTime - 1);
-        }, 1000); // 1秒(1s=1000ms)ごとに実行する
-      } else if (!isFocus && restTime > 0) {
-        timer = setInterval(() => {
-          setRestTime((prevTime) => prevTime - 1);
-        }, 1000);
-      } else if (isFocus && focusTime === 0) {
-        setIsFocus(false);
-        const restSelect = document.getElementById(
-          "restTime"
-        ) as HTMLSelectElement;
-        setRestTime(Number(restSelect.value)); // 選択された休憩時間にリセット
-        const focusSelect = document.getElementById(
-          "focusTime"
-        ) as HTMLSelectElement;
-        setFocusTime(Number(focusSelect.value)); // 選択された集中時間にリセット
-      } else if (!isFocus && restTime === 0) {
-        setIsFocus(true);
-        const focusSelect = document.getElementById(
-          "focusTime"
-        ) as HTMLSelectElement;
-        setFocusTime(Number(focusSelect.value)); // 選択された集中時間にリセット
-        const restSelect = document.getElementById(
-          "restTime"
-        ) as HTMLSelectElement;
-        setRestTime(Number(restSelect.value)); // 選択された休憩時間にリセット
-      }
+      timer = setInterval(() => {
+        if (isFocus && focusTime > 0) {
+          setFocusTime((prev) => prev - 1);
+        } else if (!isFocus && restTime > 0) {
+          setRestTime((prev) => prev - 1);
+        } else {
+          setIsFocus(!isFocus);
+          resetTimerValues();
+        }
+      }, 1000);
     }
-    return () => clearInterval(timer);
+    return () => clearInterval(timer); //クリーンアップ関数
   }, [isRunning, isFocus, focusTime, restTime]);
 
-  // 集中する時間を選択した時間に変更する関数
+  // 集中する時間を選択した時間に変更する
   function handleFocusChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setFocusTime(Number(e.target.value));
   }
-  // 休憩する時間を選択した時間に変更する関数
+  // 休憩する時間を選択した時間に変更する
   function handleRestChange(e: React.ChangeEvent<HTMLSelectElement>) {
     setRestTime(Number(e.target.value));
   }
@@ -69,7 +60,7 @@ export default function Timer() {
   }
 
   // リセットボタンを押した時の処理
-  function handleReset() {
+  function handleResetButtonClick() {
     setIsRunning(false);
     const focusSelect = document.getElementById(
       "focusTime"
@@ -109,7 +100,7 @@ export default function Timer() {
         ) : (
           <StopButton handleStop={handleStop} />
         )}
-        <ResetButton handleReset={handleReset} />
+        <ResetButton handleResetButtonClick={handleResetButtonClick} />
       </div>
     </div>
   );

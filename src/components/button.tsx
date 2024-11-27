@@ -26,13 +26,13 @@ export function StopButton({ handleStop }: StopButtonProps) {
 }
 
 interface ResetButtonProps {
-  handleReset: () => void;
+  handleResetButtonClick: () => void;
 }
 
-export function ResetButton({ handleReset }: ResetButtonProps) {
+export function ResetButton({ handleResetButtonClick }: ResetButtonProps) {
   return (
     <button
-      onClick={handleReset}
+      onClick={handleResetButtonClick}
       className="bg-gray-500 text-white px-4 py-2 rounded">
       リセット
     </button>
