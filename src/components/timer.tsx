@@ -1,5 +1,5 @@
 // todo
-// tsの型定義フォルダを追加して、そこからインポートする
+//
 "use client";
 
 import { useState, useEffect } from "react";
@@ -62,13 +62,7 @@ export default function Timer() {
   // リセットボタンを押した時の処理
   function handleResetButtonClick() {
     setIsRunning(false);
-    const focusSelect = document.getElementById(
-      "focusTime"
-    ) as HTMLSelectElement;
-    const restSelect = document.getElementById("restTime") as HTMLSelectElement;
-    // 選択された時間（数字）にする
-    setFocusTime(Number(focusSelect.value));
-    setRestTime(Number(restSelect.value));
+    resetTimerValues(); //タイマーの値をリセットする
   }
 
   // 時間をMM:SS形式にフォーマットする関数
