@@ -2,7 +2,7 @@
 
 ## プロジェクト概要
 
-Next.js 15、React 19、TypeScript、Tailwind CSS v4 で構築された日本語のポモドーロタイマーアプリです。集中時間と休憩時間のデュアルタイマーシステムで、プリセット時間オプションを提供します。
+Next.js 16、React 19、TypeScript、Tailwind CSS v4 で構築された日本語のポモドーロタイマーアプリです。集中時間と休憩時間のデュアルタイマーシステムで、プリセット時間オプションを提供します。
 
 ## アーキテクチャとパターン
 
@@ -41,7 +41,7 @@ const [isFocus, setIsFocus] = useState(true); // 集中/休憩の切り替え
 ### ビルドコマンド
 
 ```bash
-pnpm dev --turbopack    # Turbopackを使用した開発
+pnpm dev               # 開発サーバー起動（Next.js 16ではTurbopackがデフォルト）
 pnpm build             # プロダクションビルド
 pnpm lint              # ESLintチェック
 ```
@@ -69,14 +69,14 @@ pnpm lint              # ESLintチェック
 ### 最近の改善
 
 - README で`useEffect`の代替案調査に言及
-- Next.js 15 および React 19 の最新版に更新
+- Next.js 16 および React 19 の最新版に更新
 - Tailwind CSS v4 への移行
 
 ## 主要依存関係
 
-- Next.js 15.5.0（Turbopack サポート付き）
-- React 19.1.1（TypeScript 対応）
-- Tailwind CSS 4.1.12
+- Next.js 16.0.6（Turbopack デフォルト）
+- React 19.2.0（TypeScript 対応）
+- Tailwind CSS 4.1.17
 - ESLint（Next.js 設定）
 
 このプロジェクトで作業する際は、タイマーの状態管理ロジックに焦点を当て、日本語 UI の一貫性を保つことを重視してください。
