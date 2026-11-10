@@ -19,17 +19,17 @@
 
 ## 技術スタック
 
-- **フレームワーク**: Next.js 16.0.6
+- **フレームワーク**: Next.js 16
 - **言語**: TypeScript
-- **スタイリング**: Tailwind CSS 4.1.17
-- **Runtime**: React 19.2.0
+- **スタイリング**: Tailwind CSS v4
+- **Runtime**: React 19
 - **パッケージマネージャー**: pnpm
 
 ## インストールと実行
 
 ### 必要環境
 
-- Node.js 18 以上
+- Node.js LTS（CI は `node@lts` を使用）
 - pnpm
 
 ### セットアップ
@@ -37,7 +37,7 @@
 1. リポジトリをクローンします：
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Nakayama-Yuki/PomodoroTimer.git
 cd PomodoroTimer
 ```
 
@@ -61,6 +61,19 @@ pnpm dev
 - `pnpm build` - プロダクション用にビルド
 - `pnpm start` - プロダクションサーバーを起動
 - `pnpm lint` - ESLint でコードをチェック
+
+## 検証
+
+```bash
+pnpm lint
+pnpm exec playwright install --with-deps chromium
+pnpm build
+pnpm test:e2e
+# UI モード
+pnpm test:e2e:ui
+```
+
+Playwright は `pnpm start` で本番サーバーを起動するため、事前ビルドが必要です。有効なブラウザは Chromium。設定は [playwright.config.ts](playwright.config.ts)、テストは [tests/pomodoro.spec.ts](tests/pomodoro.spec.ts) を参照してください。
 
 ## 使い方
 
@@ -105,3 +118,7 @@ src/
 - [ ] ダークモードの実装
 - [ ] PWA 対応
 - [ ] タスク管理機能の統合
+
+## 開発ルール
+
+開発時の指示は [AGENTS.md](AGENTS.md) を参照してください。依存バージョンと実行可能なスクリプトは [package.json](package.json) を正とします。
