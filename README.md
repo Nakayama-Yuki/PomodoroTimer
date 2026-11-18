@@ -130,3 +130,16 @@ pnpm typecheck
 ```
 
 `next typegen` でルート型と `next-env.d.ts` を生成し、`tsc --noEmit` で型を検証します。CI でもビルド前に同じコマンドを実行します。
+
+## CIの実行手順
+
+`packageManager` に合わせてpnpm 12.21.0を使用します。CIは型・lint、ビルド、必要なブラウザの準備、本番E2Eの順で実行し、同じブランチの古い実行をキャンセルします。
+
+```bash
+pnpm install --frozen-lockfile
+pnpm ci:check
+pnpm build
+pnpm test:e2e
+```
+
+ブラウザ未導入の場合は `pnpm exec playwright install --with-deps chromium` を実行してください。ワークフローは [共通CI生成スクリプト](https://github.com/Nakayama-Yuki/calculator/blob/1c00b03232e04a008f1ddeb39e6c7a78deed1127/tools/web-ci/README.md) から生成します。
