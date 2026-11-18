@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "ci:check": "pnpm typecheck && pnpm lint --max-warnings=0"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -28,5 +29,6 @@
     "tailwindcss": "^4.3.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2"
-  }
+  },
+  "packageManager": "pnpm@12.21.0"
 }
